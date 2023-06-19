@@ -1,12 +1,161 @@
-﻿<Window x:Class="Lines.MainWindow"
+﻿<Window Style="{DynamicResource WindowStyle1}"
+        x:Class="Lines.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lines"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Height="450"
+        Width="800"
+        FontFamily="Calibi"
+        FontSize="14"
+        WindowStyle="None"
+        Background="#FF383838"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CustomResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
+        <Grid Margin="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid x:Name="ToolbarPanel"
+                  Grid.Row="0"
+                  Background="#FF1F1F1F"
+                  MouseLeftButtonDown="ToolbarPanel_MouseLeftButtonDown">
+                <DockPanel HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left">
 
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <Button x:Name="btnMinimize"
+                                Width="30"
+                                BorderThickness="0"
+                                FontFamily="Segoe MDL2 Assets"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Foreground="#FFCCCCCC"
+                                Padding="5"
+                                Click="btnMinimize_Click">
+                            &#xE921;
+                        </Button>
+                        <Button x:Name="btnRestore"
+                                Width="30"
+                                BorderThickness="0"
+                                FontFamily="Segoe MDL2 Assets"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Foreground="#FFCCCCCC"
+                                Padding="5"
+                                Click="btnRestore_Click">
+                            &#xE923;
+                        </Button>
+                        <Button x:Name="btnClose"
+                                Width="30"
+                                BorderThickness="0"
+                                FontFamily="Segoe MDL2 Assets"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Foreground="#FFCCCCCC"
+                                Padding="5"
+                                Click="btnClose_Click">
+                            &#xE8BB;
+                        </Button>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+            <Border Grid.Row="1"
+                    BorderBrush="#FF7160E8"
+                    BorderThickness="0,0,0,2"
+                    Background="#FF2E2E2E">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Left">
+                    <ToggleButton x:Name="btDraw"
+                                  Width="30"
+                                  FontFamily="Segoe MDL2 Assets"
+                                  FontSize="18"
+                                  Background="{x:Null}"
+                                  BorderThickness="0,2,0,0"
+                                  Foreground="White"
+                                  Padding="5"
+                                  Margin="5,0,5,0"
+                                  IsChecked="{Binding IsDrawing, Mode= TwoWay}"
+                                  Checked="btDraw_Checked"
+                                  ToolTip="Рисование штрихов">
+                        &#xEDC6;
+                    </ToggleButton>
+                    <ToggleButton x:Name="btSelect"
+                                  Width="30"
+                                  FontFamily="Segoe MDL2 Assets"
+                                  FontSize="18"
+                                  Background="{x:Null}"
+                                  BorderThickness="0,2,0,0"
+                                  Foreground="White"
+                                  Padding="5"
+                                  Margin="5,0,5,0"
+                                  IsChecked="{Binding IsSelecting, Mode=TwoWay}"
+                                  Checked="btSelect_Checked"
+                                  ToolTip="Выбор области расчёта">
+                        &#xF407;
+                    </ToggleButton>
+                    <Slider Maximum="50"
+                            Minimum="-2"
+                            SmallChange="1"
+                            Width="100"
+                            LargeChange="10"
+                            Foreground="#FF8A8A8A" 
+                            ToolTip="Длина штриха"
+                            Value="{Binding Latency, Mode=TwoWay}"/>
+                    <Button x:Name="btClear"
+                            Width="30"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="18"
+                            Background="{x:Null}"
+                            BorderThickness="0"
+                            Foreground="White"
+                            Padding="5"
+                            Margin="5,0,5,0"
+                            ToolTip="Очистить полотно"
+                            Click="btClear_Click">
+                        &#xED62;
+                    </Button>
+                    <Button x:Name="btCalculate"
+                            Width="30"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="18"
+                            Background="{x:Null}"
+                            BorderThickness="0"
+                            Foreground="White"
+                            Padding="5"
+                            Margin="5,0,5,0"
+                            ToolTip="Рассчитать"                            
+                            Click="btCalculate_Click">
+                        &#xE73E;
+                    </Button>
+                </StackPanel>
+            </Border>
+            <InkCanvas x:Name="icCanvas"
+                       Grid.Row="2"
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Stretch"
+                       Background="#FF1A1A1A"
+                       Cursor="Pen"
+                       RenderOptions.EdgeMode="Aliased">
+                <InkCanvas.DefaultDrawingAttributes>
+                    <DrawingAttributes Color="LightGray" />
+                </InkCanvas.DefaultDrawingAttributes>
+            </InkCanvas>
+        </Grid>
     </Grid>
 </Window>
